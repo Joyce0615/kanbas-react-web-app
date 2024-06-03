@@ -7,7 +7,7 @@ import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 function App() {
   return (
     <HashRouter>
-      <div>
+      <div className="h-100">
          {/* "/" declared a default screen */}
         <Routes>
           <Route path="/" element={<Navigate to="/Labs" />} /> 
