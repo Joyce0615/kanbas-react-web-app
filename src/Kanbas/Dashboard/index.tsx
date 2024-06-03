@@ -9,7 +9,7 @@ export default function Dashboard() {
         <div id="wd-dashboard-courses" className="row">
           <div className="row row-cols-1 row-cols-md-5 g-4">
             <div className="wd-dashboard-course col" style={{width:"300px"}} >
-              <div className="cards">
+              <div className="card">
                 <img src="/images/webdevelopment.png" className="card-image"/>
                 <div className="card-body">
                   <a className="wd-dashboard-course-link"
