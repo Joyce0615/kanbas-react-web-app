@@ -616,22 +616,22 @@ export default function Lab2() {
         <h2>Tabs</h2>
         <ul className="nav nav-tabs">
           <li className="nav-item"> 
-            <a className="nav-link active" href="Labs/Lab2/Tabs/1">
+            <a className="nav-link active" href="#/Labs">
               Active
             </a> 
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="Labs/Lab2/Tabs/2">
+            <a className="nav-link" href="#/Labs">
               Link
             </a> 
           </li> 
           <li className="nav-item"> 
-            <a className="nav-link" href="Labs/Lab2/Tabs/3">
+            <a className="nav-link" href="#/Labs">
               Link
             </a> 
           </li> 
           <li className="nav-item">
-            <a className="nav-link disabled" href="Labs/Lab2/Tabs/4">
+            <a className="nav-link disabled" href="#/Labs">
               Disabled
             </a>
           </li>
@@ -645,7 +645,7 @@ export default function Lab2() {
           <div className="card-body"> 
             <h5 className="card-title"> Stacking Starship </h5> 
             <p className="card-text"> Stacking the most powerful rocket in history. Mars or bust! </p> 
-            <a href="Labs/Lab2/Cards" className="btn btn-primary"> Boldly Go </a> 
+            <a href="#/Labs" className="btn btn-primary"> Boldly Go </a> 
           </div> 
         </div> 
       </div><br /><br />

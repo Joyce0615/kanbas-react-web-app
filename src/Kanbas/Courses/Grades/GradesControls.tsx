@@ -16,12 +16,12 @@ export default function GradesControls() {
         </button>
         <ul className="dropdown-menu">
           <li>
-            <a id="wd-export-a-btn" className="dropdown-item" href="Kanbas/Courses/Grades/exportA">
+            <a id="wd-export-a-btn" className="dropdown-item" href="#/Labs">
               export A
             </a> 
           </li> 
         <li>
-          <a id="wd-export-b-button" className="dropdown-item" href="Kanbas/Courses/Grades/exportB">
+          <a id="wd-export-b-button" className="dropdown-item" href="#/Labs">
               export B
           </a> 
         </li> 

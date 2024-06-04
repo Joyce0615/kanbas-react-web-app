@@ -16,19 +16,19 @@ export default function Assignments() {
             <FaSortDown className="mb-2" />
             ASSIGNMENTS
             <div className="ms-auto">
-              <button className="btn btn-light btn-outline-secondary rounded-pill text-black me-2">
+              <button className="btn btn-outline-secondary rounded-pill text-black me-2">
                 40% of Total
               </button>
               <TasksControlButtons />
             </div>
           </div>
-          <ul className="wd-assignments list-group rounded-0">
+          <ul className="wd-assignments list-group rounded-0" style={{borderLeftWidth: "thick", borderLeftColor: "green", borderLeftStyle: "solid" }}>
             <li className="wd-assignment list-group-item p-3 ps-1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <BsGripVertical className="me-2 fs-3" />
                 <VscBook className="text-success fs-4" style={{ marginTop: "5px" }} />
               </div>
-              <div style={{ marginLeft: '10px' }}>
+              <div style={{ marginLeft: '10px'}}>
                 <a className="wd-task-link" href="#/Kanbas/Courses/1234/Assignments/A1">
                   A1 - ENV + HTML
                 </a>
@@ -45,7 +45,7 @@ export default function Assignments() {
               </div>
             </li>
           </ul>
-          <ul className="wd-assignments list-group rounded-0">
+          <ul className="wd-assignments list-group rounded-0" style={{borderLeftWidth: "thick", borderLeftColor: "green", borderLeftStyle: "solid" }}>
             <li className="wd-assignment list-group-item p-3 ps-1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <BsGripVertical className="me-2 fs-3" />
@@ -68,7 +68,7 @@ export default function Assignments() {
               </div>
             </li>
           </ul>
-          <ul className="wd-assignments list-group rounded-0">
+          <ul className="wd-assignments list-group rounded-0" style={{borderLeftWidth: "thick", borderLeftColor: "green", borderLeftStyle: "solid" }}>
             <li className="wd-assignment list-group-item p-3 ps-1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <BsGripVertical className="me-2 fs-3" />
