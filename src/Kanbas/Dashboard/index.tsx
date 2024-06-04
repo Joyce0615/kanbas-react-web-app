@@ -8,7 +8,7 @@ export default function Dashboard() {
         <h2 id="wd-dashboard-published">&nbsp;&nbsp;Published Courses (8)</h2> <hr />
         <div id="wd-dashboard-courses" className="row">
           <div className="row row-cols-1 row-cols-md-5 g-4">
-            <div className="wd-dashboard-course col" style={{width:"300px"}} >
+            <div className="wd-dashboard-course col" style={{width:"270px"}} >
               <div className="card">
                 <img src="/images/webdevelopment.png" className="card-image"/>
                 <div className="card-body">
@@ -26,7 +26,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="wd-dashboard-course col" style={{width:"300px"}}>
+            <div className="wd-dashboard-course col" style={{width:"270px"}}>
               <div className="card">
                 <img src="/images/algorithm.png" className="card-image"/>
                 <div className="card-body">
@@ -44,7 +44,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="wd-dashboard-course col" style={{width:"300px"}}>
+            <div className="wd-dashboard-course col" style={{width:"270px"}}>
               <div className="card">
                 <img src="/images/java.png" className="card-image"/>
                 <div className="card-body">
@@ -62,7 +62,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="wd-dashboard-course col" style={{width:"300px"}}>
+            <div className="wd-dashboard-course col" style={{width:"270px"}}>
               <div className="card">
                 <img src="/images/machinelearning.png" className="card-image"/>
                 <div className="card-body">
@@ -80,7 +80,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="wd-dashboard-course col" style={{width:"300px"}}>
+            <div className="wd-dashboard-course col" style={{width:"270px"}}>
               <div className="card">
                 <img src="/images/computersystem.png" className="card-image"/>
                 <div className="card-body">
@@ -98,7 +98,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="wd-dashboard-course col" style={{width:"300px"}}>
+            <div className="wd-dashboard-course col" style={{width:"270px"}}>
               <div className="card">
                 <img src="/images/mobile.png" className="card-image"/>
                 <div className="card-body">
@@ -116,7 +116,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="wd-dashboard-course col" style={{width:"300px"}}>
+            <div className="wd-dashboard-course col" style={{width:"270px"}}>
               <div className="card">
                 <img src="/images/ai.png" className="card-image"/>
                 <div className="card-body">
@@ -134,7 +134,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="wd-dashboard-course col" style={{width:"300px"}}>
+            <div className="wd-dashboard-course col" style={{width:"270px"}}>
               <div className="card">
                 <img src="/images/computersecurity.png" className="card-image"/>
                 <div className="card-body">
