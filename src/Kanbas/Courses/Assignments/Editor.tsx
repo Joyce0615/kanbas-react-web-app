@@ -1,4 +1,10 @@
+import { assignments } from '../../Database';  
+import { useParams, Link } from "react-router-dom";
+
 export default function AssignmentsEditor() {
+  const { cid } = useParams(); 
+  const selectedAssignment = assignments.find(a => a._id === cid);
+
   return (
     <div className="container mt-4">
       <form>
@@ -8,7 +14,7 @@ export default function AssignmentsEditor() {
             <input
               type="text"
               id="assignmentName"
-              placeholder="A1 - ENV + HTML"
+              value={selectedAssignment ? selectedAssignment.title : ''}
               className="form-control"
             />
           </div>
@@ -149,9 +155,13 @@ export default function AssignmentsEditor() {
             </div>
             <hr />
             <div className="mb-3 row">
-            <div className="d-flex justify-content-end">
-              <button type="button" className="btn btn-secondary me-1">Cancel</button>
-              <button type="submit" className="btn btn-m btn-danger">Save</button>
+              <div className="d-flex justify-content-end">
+              <Link to={`/Kanbas/Courses/${selectedAssignment?.course}/Assignments`} className="btn btn-secondary me-1">
+                Cancel
+              </Link>
+              <Link to={`/Kanbas/Courses/${selectedAssignment?.course}/Assignments`} className="btn btn-danger">
+                Save
+              </Link>
               </div>
             </div>
           </div>

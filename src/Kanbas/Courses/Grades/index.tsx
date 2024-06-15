@@ -1,10 +1,42 @@
 import GradesControls from "./GradesControls";
 import { IoIosSearch } from "react-icons/io";
 import { HiOutlineFunnel } from "react-icons/hi2";
-import { LiaFileExportSolid } from "react-icons/lia";
+import { users, grades, enrollments, assignments } from "../../Database";
 import "../../styles.css";
+import { useParams } from "react-router";
 
 export default function Grades() {
+  const { cid } = useParams();
+
+  // retrieve the specific course enrollments and assignments
+  const courseEnrollments = enrollments.filter(enrollment => enrollment.course === cid);
+  const courseAssignments = assignments.filter(assignment => assignment.course === cid);
+
+  // get enrolled student ids
+  const studentIds = courseEnrollments.map(enrollment => enrollment.user);
+  const students = users.filter(user => studentIds.includes(user._id));
+
+  // get course grades filtered by enrolled students and course assignments
+  const courseGrades = grades.filter(grade =>
+    studentIds.includes(grade.student) && courseAssignments.map(a => a._id).includes(grade.assignment)
+  );
+
+  // map grades by student
+  const gradesByStudent = students.map(user => {
+    const studentGrades = courseGrades.filter(grade => grade.student === user._id)
+      .map(grade => ({
+        assignmentId: grade.assignment,
+        grade: grade.grade
+      }));
+
+    return {
+      studentId: user._id,
+      fullName: `${user.firstName} ${user.lastName}`,
+      grades: studentGrades
+    };
+  });
+
+
   return (
     <div className="container mt-3">
       <div className="grades-controls">
@@ -13,19 +45,23 @@ export default function Grades() {
       <br /><br /><br />
       <form>
         <div className="row">
-          <div className="col col-sm-6">
+          <div className="col-12 col-sm-6">
             <label htmlFor="assignmentName" className="col-form-label">Student Names</label>
             <div className="input-group">
               <span className="input-group-text bg-white border-end-0">
                 <IoIosSearch />
               </span>
-              <select
-                className="form-select border-start-0"
-                id="studentName">
+              <select className="form-select border-start-0" id="studentSelect">
                 <option value="" disabled selected hidden>Search Students</option>
-                <option value="student A">student A</option>
-                <option value="student B">student B</option>
-                <option value="student c">student C</option>
+                {courseEnrollments.map(enrollment => {
+                  const user = users.find(user => user._id === enrollment.user);
+                  const studentName = user ? `${user.firstName} ${user.lastName}` : 'Unknown User';
+                  return (
+                    <option key={enrollment.user} value={enrollment.user}>
+                      {studentName}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
@@ -35,13 +71,14 @@ export default function Grades() {
               <span className="input-group-text bg-white border-end-0">
                 <IoIosSearch />
               </span>
-              <select
-                className="form-select border-start-0"
-                id="studentName">
+              <select className="form-select border-start-0" id="assignmentSelect">
                 <option value="" disabled selected hidden>Search Assignments</option>
-                <option value="student A">student A</option>
-                <option value="student B">student B</option>
-                <option value="student c">student C</option>
+                {assignments.filter(assignment => assignment.course === cid
+                ).map(assignment => (
+                  <option key={assignment._id} value={assignment.course}>
+                    {assignment.title}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -58,62 +95,25 @@ export default function Grades() {
       <div className="mt-4">
         <table className="table">
           <thead>
-            <tr className="table-secondary text-center">
+            <tr className=" table-secondary text-center">
               <th className="text-left">Student Name</th>
-              <th>A1 SETUP<br/>Out of 100</th>
-              <th>A2 HTML<br/>Out of 100</th>
-              <th>A3 CSS<br/>Out of 100</th>
-              <th>A4 BOOTSTRAP<br/>Out of 100</th>
+              {assignments.filter(assignment => assignment.course === cid).map(assignment => (
+                <th key={assignment._id}>{assignment.title}<br/>Out of 100</th>
+              ))}
             </tr>
           </thead>
-          <tbody>
-            <tr className="text-center">
-              <td className="text-danger text-left">Jane Adams</td>
-              <td>100%</td>
-              <td>96.67%</td>
-              <td>92.18%</td>
-              <td>66.22%</td>
-            </tr>
-            <tr className="table-secondary text-center">
-              <td className="text-danger text-left">Christina Allen</td>
-              <td>100%</td>
-              <td>100%</td>
-              <td>100%</td>
-              <td>100%</td>
-            </tr>
-            <tr className="text-center">
-              <td className="text-danger text-left">Samreen Ansari</td>
-              <td>100%</td>
-              <td>100%</td>
-              <td>100%</td>
-              <td>100%</td>
-            </tr>
-            <tr className="table-secondary text-center">
-              <td className="text-danger text-left">Han Bao</td>
-              <td>100%</td>
-              <td>100%</td>
-              <td>
-                <input style={{ width: '70px' }} placeholder="88.03%" />
-                <button id="wd-export-grade-btn" className="btn btn-m">
-                  <LiaFileExportSolid />
-                </button>
-              </td>
-              <td>98.99%</td>
-            </tr>
-            <tr className="text-center">
-              <td className="text-danger text-left">Mahi Sai Srinivas Bobbili</td>
-              <td>100%</td>
-              <td>96.67%</td>
-              <td>98.37%</td>
-              <td>100%</td>
-            </tr>
-            <tr className="table-secondary text-center">
-              <td className="text-danger text-left">Siran Cao</td>
-              <td>100%</td>
-              <td>100%</td>
-              <td>100%</td>
-              <td>100%</td>
-            </tr>
+          <tbody className="text-center">
+            {gradesByStudent.map((student, index) => (
+              <tr key={index}>
+                <td className="text-danger text-start">{student.fullName}</td>
+                {courseAssignments.map((assignment, index) => {
+                  const grade = student.grades.find(g => g.assignmentId === assignment._id);
+                  return (
+                    <td key={index}>{grade ? `${grade.grade}%` : "N/A"}</td>
+                  );
+                })}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
