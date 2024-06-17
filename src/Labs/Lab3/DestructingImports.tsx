@@ -24,6 +24,16 @@ export default function DestructingImports() {
             <td>Matematica.subtract(5, 1) = {Matematica.subtract(5, 1)}</td> 
             <td>subtract(5, 1) = {subtract(5, 1)}</td> 
           </tr>
+          <tr> 
+            <td>Math.multiply(5, 2) = {Math.multiply(5, 2)}</td> 
+            <td>Matematica.multiply(5, 2) = {Matematica.multiply(5, 2)}</td> 
+            <td>multiply(5, 2) = {multiply(5, 2)}</td> 
+          </tr>
+          <tr> 
+            <td>Math.divide(15, 3) = {Math.divide(15, 3)}</td> 
+            <td>Matematica.divide(15, 3) = {Matematica.divide(15, 3)}</td> 
+            <td>divide(15, 3) = {divide(15, 3)}</td> 
+          </tr>
         </tbody> 
       </table> 
     <hr /> 
