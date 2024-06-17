@@ -33,7 +33,7 @@ export default function Assignments() {
             <li key={assign._id} className="wd-assignment list-group-item p-3 ps-1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <BsGripVertical className="me-2 fs-3" />
-                <VscBook className="text-success fs-4" style={{ marginTop: "5px" }} />
+                <VscBook className="fs-4" style={{ marginTop: "5px" }} />
               </div>
               <div style={{ marginLeft: '10px'}}>
                 <Link className="wd-task-link" to={`/Kanbas/Courses/${assign.course}/Assignments/${assign._id}`}>
@@ -43,9 +43,9 @@ export default function Assignments() {
                 <span className="text-danger">Multiple Modules</span>
                 <span> | </span>
                 <strong>Not available until</strong>
-                <span> May 6 at 12:00am | </span>
+                <span> {assign.availableFrom} | </span>
                 <strong>Due</strong>
-                <span> May 13 at 11:59pm | 100 pts</span>
+                <span> {assign.dueDate}| 100 pts</span>
               </div>
               <div style={{ marginLeft: 'auto' }}>
                 <LessonControlButtons />

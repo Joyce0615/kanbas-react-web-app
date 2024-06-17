@@ -4,6 +4,11 @@ import { useParams, Link } from "react-router-dom";
 export default function AssignmentsEditor() {
   const { cid } = useParams(); 
   const selectedAssignment = assignments.find(a => a._id === cid);
+  const formatDateForInput = (dateInput: any) => {
+    if (!dateInput) return '';
+    const date = new Date(dateInput);
+    return date.toISOString().split('T')[0];
+  }
 
   return (
     <div className="container mt-4">
@@ -127,7 +132,7 @@ export default function AssignmentsEditor() {
                   <input
                     type="date"
                     id="dueDate"
-                    value="2024-05-13"
+                    value={selectedAssignment ? formatDateForInput(selectedAssignment.dueDate) : ''}
                     className="form-control mb-3"
                   />
                   <div className="row">
@@ -136,7 +141,7 @@ export default function AssignmentsEditor() {
                       <input
                         type="date"
                         id="availableFrom"
-                        value="2024-05-06"
+                        value={selectedAssignment ? formatDateForInput(selectedAssignment.availableFrom) : ''}
                         className="form-control mb-3"
                       />
                     </div>
@@ -145,7 +150,7 @@ export default function AssignmentsEditor() {
                       <input
                         type="date"
                         id="until"
-                        placeholder=""
+                        value={selectedAssignment ? formatDateForInput(selectedAssignment.dueDate) : ''}
                         className="form-control mb-3"
                       />
                     </div>
