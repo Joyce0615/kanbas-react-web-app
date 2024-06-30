@@ -3,18 +3,30 @@ import { BsGripVertical } from "react-icons/bs";
 import TasksControlButtons from "./TasksControlButtons";
 import { FaSortDown } from "react-icons/fa";
 import { VscBook } from "react-icons/vsc";
+import { FaPencil } from "react-icons/fa6";
 import LessonControlButtons from "../Modules/LessonControlButtons";
-import { useParams, Link } from "react-router-dom";
-import { assignments } from '../../Database';  
-
+import AssignmentModifyControl from "./AssignmentModifyControl";
+import { useParams, useNavigate} from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteAssignment } from "./assignmentReducer";
 
 export default function Assignments() {
   const { cid } = useParams();
-  const courseAssignments = assignments.filter((a) => a.course === cid);
-  
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
+  const assignments = useSelector((state: any) =>
+    state.assignmentReducer.assignments.filter((assign: any) => assign.course === cid)
+  );
+
+  console.log(assignments);
   return (
     <div id="wd-assignments">
-      <AssignmentControls /><br /><br />
+      <AssignmentControls 
+        addAssignment={() => {
+        navigate(`/Kanbas/Courses/${cid}/Assignments/new`);
+      }}/><br /><br />
       <ul id="wd-assignments" className="list-group rounded-0">
         <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
           <div className="wd-title p-3 ps-2 bg-secondary d-flex align-items-center">
@@ -25,20 +37,21 @@ export default function Assignments() {
               <button className="btn btn-outline-secondary rounded-pill text-black me-2">
                 40% of Total
               </button>
-              <TasksControlButtons />
+              <TasksControlButtons/>
             </div>
           </div>
           <ul className="wd-assignments list-group rounded-0" style={{borderLeftWidth: "thick", borderLeftColor: "green", borderLeftStyle: "solid" }}>
-            {courseAssignments.map((assign) => (
+            {assignments.map((assign: any) => (
             <li key={assign._id} className="wd-assignment list-group-item p-3 ps-1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <BsGripVertical className="me-2 fs-3" />
                 <VscBook className="fs-4" style={{ marginTop: "5px" }} />
               </div>
-              <div style={{ marginLeft: '10px'}}>
-                <Link className="wd-task-link" to={`/Kanbas/Courses/${assign.course}/Assignments/${assign._id}`}>
-                  {assign.title}
-                </Link>
+              <div>
+              </div>
+              <div style={{ marginLeft: '10px'}}
+                className="wd-task-link" onClick={() => navigate(`/Kanbas/Courses/${assign.course}/Assignments/${assign._id}`)}>
+                {assign.title}
                 <br />
                 <span className="text-danger">Multiple Modules</span>
                 <span> | </span>
@@ -49,6 +62,12 @@ export default function Assignments() {
               </div>
               <div style={{ marginLeft: 'auto' }}>
                 <LessonControlButtons />
+                <AssignmentModifyControl 
+                  assignmentId={assign._id}
+                  deleteAssignment={(assignmentId) => {
+                    dispatch(deleteAssignment(assignmentId));
+                  }}/>
+                <FaPencil className="text-primary me-3" onClick={() => navigate(`/Kanbas/Courses/${assign.course}/Assignments/${assign._id}`)}/>
               </div>
             </li>
             ))}

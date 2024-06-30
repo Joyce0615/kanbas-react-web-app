@@ -1,43 +1,78 @@
-import { assignments } from '../../Database';  
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addAssignment, updateAssignment } from "./assignmentReducer";
+import { useState } from "react";
 
 export default function AssignmentsEditor() {
-  const { cid } = useParams(); 
-  const selectedAssignment = assignments.find(a => a._id === cid);
+  const { cid, aid } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { assignments } = useSelector((state: any) => state.assignmentReducer);
+
+  console.log()
+  const [assignment, setAssignment] = useState(
+    assignments.find((assignment: any) => assignment._id === aid) || {
+      title:"New Assignment",
+      description: "New Assignment Description",
+      dueDate: new Date().toISOString().split('T')[0],
+      availableFrom: new Date().toISOString().split('T')[0],
+      until: new Date().toISOString().split('T')[0],
+      course:cid,
+    }
+  );
+  
   const formatDateForInput = (dateInput: any) => {
     if (!dateInput) return '';
     const date = new Date(dateInput);
     return date.toISOString().split('T')[0];
   }
+  const handleSave = (e: any) => {
+    e.preventDefault();
+    if (!assignment.title || !assignment.course) {
+      return;
+    }
+    if (aid === 'new') {
+      // Dispatch addAssignment with the new assignment details
+      dispatch(addAssignment({ ...assignment, course: cid }));
+
+    } else {
+      // Dispatch updateAssignment with the updated assignment details
+      dispatch(updateAssignment(assignment));
+    }
+  
+    // Navigate back to the assignments list for the course
+    navigate(-1);
+  };
+
+  const handleCancel = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="container mt-4">
       <form>
-        <div className="mb-3 row">
+      <div className="mb-3 row">
           <label htmlFor="assignmentName" className="col-form-label">Assignment Name</label>
           <div className="col-sm-10">
-            <input
+            <input className="form-control"
               type="text"
               id="assignmentName"
-              value={selectedAssignment ? selectedAssignment.title : ''}
-              className="form-control"
+              value={assignment.title}
+              onChange={(e) => setAssignment((a: any) => ({ ...a, title: e.target.value }))}
             />
           </div>
         </div>
         <div className="mb-3 row">
           <div className="col-sm-10">
-            <div className="p-3 border" id="assignmentDetails">
-              <p>The assignment is <span style={{ color: 'red' }}>available online</span></p>
-              <p>Submit a link to the landing page of your Web application running on Netlify.</p>
-              <p>The landing page should include the following:</p>
-              <ul>
-                <li>Your full name and section</li>
-                <li>Links to each of the lab assignments</li>
-                <li>Link to the Kanbas application</li>
-                <li>Links to all relevant source code repositories</li>
-              </ul>
-              <p>The Kanbas application should include a link to navigate back to the landing page.</p>
-            </div>
+            <textarea
+            id="wd-description"
+            className="form-control col-12"
+            rows={5}
+            style={{ resize: "none" }}
+            value={assignment.description}
+            onChange={(e) => setAssignment((a: any) => ({ ...a, description: e.target.value }))}
+          />
           </div>
         </div>
         <div className="row mb-3">
@@ -45,11 +80,10 @@ export default function AssignmentsEditor() {
             <div className="mb-3 row">
               <label htmlFor="points" className="col-sm-4 col-form-label text-end">Points</label>
               <div className="col-sm-8">
-                <input
+                <input className="form-control"
                   type="number"
                   id="points"
                   placeholder="100"
-                  className="form-control"
                 />
               </div>
             </div>
@@ -122,36 +156,35 @@ export default function AssignmentsEditor() {
               <div className="col-sm-8">
                 <div className="p-2 border">
                   <label htmlFor="assignToPeople" className="col-sm-4 col-form-label text-start">Assign to</label>
-                  <input
+                  <input className="form-control mb-3"
                     type="text"
                     id="assignTo"
                     placeholder="Everyone"
-                    className="form-control mb-3"
                   />
                   <label htmlFor="dueDate" className="form-label">Due</label>
-                  <input
+                  <input className="form-control mb-3"
                     type="date"
                     id="dueDate"
-                    value={selectedAssignment ? formatDateForInput(selectedAssignment.dueDate) : ''}
-                    className="form-control mb-3"
+                    value={formatDateForInput(assignment.dueDate)}
+                    onChange={(e) => setAssignment((a: any) => ({ ...a, dueDate: e.target.value }))}
                   />
                   <div className="row">
                     <div className="col">
                       <label htmlFor="availableFrom" className="form-label">Available from</label>
-                      <input
+                      <input className="form-control mb-3"
                         type="date"
                         id="availableFrom"
-                        value={selectedAssignment ? formatDateForInput(selectedAssignment.availableFrom) : ''}
-                        className="form-control mb-3"
+                        value={formatDateForInput(assignment.availableFrom)}
+                        onChange={(e) => setAssignment((a: any) => ({ ...a, avaliableFrom: e.target.value }))}
                       />
                     </div>
                     <div className="col">
                       <label htmlFor="until" className="form-label">Until</label>
-                      <input
+                      <input className="form-control mb-3"
                         type="date"
                         id="until"
-                        value={selectedAssignment ? formatDateForInput(selectedAssignment.dueDate) : ''}
-                        className="form-control mb-3"
+                        value={formatDateForInput(assignment.until)}
+                        onChange={(e) => setAssignment((a: any) => ({ ...a, until: e.target.value }))}
                       />
                     </div>
                   </div>
@@ -161,12 +194,12 @@ export default function AssignmentsEditor() {
             <hr />
             <div className="mb-3 row">
               <div className="d-flex justify-content-end">
-              <Link to={`/Kanbas/Courses/${selectedAssignment?.course}/Assignments`} className="btn btn-secondary me-1">
+              <button className="btn btn-secondary me-1" onClick={handleCancel}>
                 Cancel
-              </Link>
-              <Link to={`/Kanbas/Courses/${selectedAssignment?.course}/Assignments`} className="btn btn-danger">
+              </button>
+              <button onClick={handleSave} className="btn btn-danger">
                 Save
-              </Link>
+              </button>
               </div>
             </div>
           </div>

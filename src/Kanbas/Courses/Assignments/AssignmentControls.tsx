@@ -1,7 +1,12 @@
 import { FaPlus } from "react-icons/fa6"; 
 import { IoIosSearch } from "react-icons/io";
 
-export default function AssignmentControls() { 
+export default function AssignmentControls({
+  addAssignment,
+
+}:{
+  addAssignment: () => void;
+}) { 
   return (
     <div id="wd-assignmnets-controls" className="d-flex text-nowrap">
       <div className="input-group me-3" style={{ width: "250px" }}>
@@ -19,7 +24,10 @@ export default function AssignmentControls() {
           <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
           Group
         </button>
-        <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger">
+        <button id="wd-add-assignment-btn" 
+                className="btn btn-lg btn-danger"
+                onClick ={addAssignment}
+                >
           <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
           Assignment
         </button>

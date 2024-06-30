@@ -5,10 +5,11 @@ import Grades from "./Grades";
 import Assignments from "./Assignments";
 import AssignmentsEditor from "./Assignments/Editor";
 import CoursesNavigation from "./Navigation";
-import { courses } from "../Database";
 import { FaAlignJustify } from 'react-icons/fa';
 
-export default function Courses() {
+
+//accept courses from kanbas not database
+export default function Courses({courses}: {courses:any[];}) {
   const { cid } = useParams();
   const course = courses.find((course) => course._id === cid);
   const { pathname } = useLocation();
@@ -32,7 +33,7 @@ export default function Courses() {
             <Route path="/Piazza" element={<h3>Piazza</h3>} />
             <Route path="/Zoom" element={<h3>Zoom Links</h3>} />
             <Route path="/Assignments" element={<Assignments />} />
-            <Route path="/Assignments/:cid" element={<AssignmentsEditor/>} />
+            <Route path="/Assignments/:aid" element={<AssignmentsEditor/>} />
             <Route path="/Quizzes" element={<h3>Quizzes</h3>} />
             <Route path="/Grades" element={<Grades />} />.
           </Routes>
