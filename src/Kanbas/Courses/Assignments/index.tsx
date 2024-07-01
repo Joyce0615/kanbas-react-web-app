@@ -20,7 +20,6 @@ export default function Assignments() {
     state.assignmentReducer.assignments.filter((assign: any) => assign.course === cid)
   );
 
-  console.log(assignments);
   return (
     <div id="wd-assignments">
       <AssignmentControls 
@@ -49,16 +48,15 @@ export default function Assignments() {
               </div>
               <div>
               </div>
-              <div style={{ marginLeft: '10px'}}
-                className="wd-task-link" onClick={() => navigate(`/Kanbas/Courses/${assign.course}/Assignments/${assign._id}`)}>
+              <div style={{ marginLeft: '10px'}}>
                 {assign.title}
                 <br />
                 <span className="text-danger">Multiple Modules</span>
                 <span> | </span>
                 <strong>Not available until</strong>
-                <span> {assign.availableFrom} | </span>
+                <span> {assign.until} | </span>
                 <strong>Due</strong>
-                <span> {assign.dueDate}| 100 pts</span>
+                <span> {assign.dueDate}| {assign.points} pts</span>
               </div>
               <div style={{ marginLeft: 'auto' }}>
                 <LessonControlButtons />

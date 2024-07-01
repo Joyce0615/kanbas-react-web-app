@@ -10,11 +10,11 @@ export default function AssignmentsEditor() {
 
   const { assignments } = useSelector((state: any) => state.assignmentReducer);
 
-  console.log()
   const [assignment, setAssignment] = useState(
     assignments.find((assignment: any) => assignment._id === aid) || {
       title:"New Assignment",
       description: "New Assignment Description",
+      points:"100",
       dueDate: new Date().toISOString().split('T')[0],
       availableFrom: new Date().toISOString().split('T')[0],
       until: new Date().toISOString().split('T')[0],
@@ -84,6 +84,8 @@ export default function AssignmentsEditor() {
                   type="number"
                   id="points"
                   placeholder="100"
+                  value={assignment.points}
+                  onChange={(e) => setAssignment((a: any) => ({ ...a, points: e.target.value }))}
                 />
               </div>
             </div>
@@ -125,7 +127,7 @@ export default function AssignmentsEditor() {
                   </label>
                 </div>
                 <div className="form-check mb-3">
-                  <input className="form-check-input" type="checkbox" id="websiteUrl" checked />
+                  <input className="form-check-input" type="checkbox" id="websiteUrl" />
                   <label className="form-check-label" htmlFor="websiteUrl">
                     Website URL
                   </label>
@@ -175,7 +177,7 @@ export default function AssignmentsEditor() {
                         type="date"
                         id="availableFrom"
                         value={formatDateForInput(assignment.availableFrom)}
-                        onChange={(e) => setAssignment((a: any) => ({ ...a, avaliableFrom: e.target.value }))}
+                        onChange={(e) => setAssignment((a: any) => ({ ...a, availableFrom: e.target.value }))}
                       />
                     </div>
                     <div className="col">
@@ -185,6 +187,7 @@ export default function AssignmentsEditor() {
                         id="until"
                         value={formatDateForInput(assignment.until)}
                         onChange={(e) => setAssignment((a: any) => ({ ...a, until: e.target.value }))}
+
                       />
                     </div>
                   </div>
