@@ -8,17 +8,31 @@ import LessonControlButtons from "../Modules/LessonControlButtons";
 import AssignmentModifyControl from "./AssignmentModifyControl";
 import { useParams, useNavigate} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteAssignment } from "./assignmentReducer";
+import { setAssignments, deleteAssignment } from "./assignmentReducer";
+import { useEffect } from "react";
+import * as client from "./client";
 
 export default function Assignments() {
   const { cid } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const fetchAssignments = async () => {
+    const assignments = await client.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
 
   const assignments = useSelector((state: any) =>
     state.assignmentReducer.assignments.filter((assign: any) => assign.course === cid)
   );
+
+  const removeAssignment = async (assignmentId: string) => {
+    await client.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+  };
 
   return (
     <div id="wd-assignments">
@@ -63,7 +77,7 @@ export default function Assignments() {
                 <AssignmentModifyControl 
                   assignmentId={assign._id}
                   deleteAssignment={(assignmentId) => {
-                    dispatch(deleteAssignment(assignmentId));
+                    removeAssignment(assignmentId);
                   }}/>
                 <FaPencil className="text-primary me-3" onClick={() => navigate(`/Kanbas/Courses/${assign.course}/Assignments/${assign._id}`)}/>
               </div>

@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addAssignment, updateAssignment } from "./assignmentReducer";
 import { useState } from "react";
+import * as client from "./client";
 
 export default function AssignmentsEditor() {
   const { cid, aid } = useParams();
@@ -21,6 +22,16 @@ export default function AssignmentsEditor() {
       course:cid,
     }
   );
+
+  const createAssignment = async (assignment: any) => {
+    const newAssignment = await client.createAssignment(cid as string, assignment);
+    dispatch(addAssignment(newAssignment));
+  };
+
+  const saveAssignment = async (assignment: any) => {
+    const status = await client.updateAssignment(assignment);
+    dispatch(updateAssignment(assignment));
+  };
   
   const formatDateForInput = (dateInput: any) => {
     if (!dateInput) return '';
@@ -34,11 +45,11 @@ export default function AssignmentsEditor() {
     }
     if (aid === 'new') {
       // Dispatch addAssignment with the new assignment details
-      dispatch(addAssignment({ ...assignment, course: cid }));
+      createAssignment({ ...assignment, course: cid });
 
     } else {
       // Dispatch updateAssignment with the updated assignment details
-      dispatch(updateAssignment(assignment));
+      saveAssignment(assignment);
     }
   
     // Navigate back to the assignments list for the course
