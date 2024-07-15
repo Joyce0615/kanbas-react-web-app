@@ -22,10 +22,10 @@ export default function QueryParameters() {
          href={`${REMOTE_SERVER}/lab5/calculator?operation=subtract&a=${a}&b=${b}`}> Substract {a} - {b} </a><hr /> 
       <a className="btn btn-primary"
          id="wd-query-parameter-multiply"
-         href={`${REMOTE_SERVER}/lab5/calculator?operation=multiply&a=${a}&b=${b}`}> multiply {a} - {b} </a><hr /> 
+         href={`${REMOTE_SERVER}/lab5/calculator?operation=multiply&a=${a}&b=${b}`}> multiply {a} * {b} </a><hr /> 
       <a className="btn btn-danger"
          id="wd-query-parameter-divide"
-         href={`${REMOTE_SERVER}/lab5/calculator?operation=divide&a=${a}&b=${b}`}> divide {a} - {b} </a><hr /> 
+         href={`${REMOTE_SERVER}/lab5/calculator?operation=divide&a=${a}&b=${b}`}> divide {a} / {b} </a><hr /> 
     </div>
   ); 
 }
