@@ -6,6 +6,8 @@ import Assignments from "./Assignments";
 import AssignmentsEditor from "./Assignments/Editor";
 import CoursesNavigation from "./Navigation";
 import { FaAlignJustify } from 'react-icons/fa';
+import PeopleTable from "../People/Table";
+import PeopleDetails from "../People/Details";
 
 
 //accept courses from kanbas not database
@@ -35,7 +37,9 @@ export default function Courses({courses}: {courses:any[];}) {
             <Route path="/Assignments" element={<Assignments />} />
             <Route path="/Assignments/:aid" element={<AssignmentsEditor/>} />
             <Route path="/Quizzes" element={<h3>Quizzes</h3>} />
-            <Route path="/Grades" element={<Grades />} />.
+            <Route path="/Grades" element={<Grades />} />
+            <Route path="/People" element={<PeopleTable />} />
+            <Route path="/People/:uid" element={<PeopleTable />} />
           </Routes>
         </div>
       </div>
