@@ -15,7 +15,7 @@ export default function AccountNavigation() {
   return (
     <div id="wd-account-navigation" className="list-group fs-5 rounded-0">
       {links.map((link) => (
-        <Link to={`/Kanbas/Account/${link.path}`} 
+        <Link key={link.path} to={`/Kanbas/Account/${link.path}`} 
               className={`border-0 list-group-item ${ pathname.includes(link.path) ? "active" : "text-danger" }`}> 
           {link.name} 
         </Link> 
