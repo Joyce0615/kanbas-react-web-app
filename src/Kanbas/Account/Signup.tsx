@@ -18,6 +18,9 @@ export default function Signup() {
       setError(err.response.data.message);
     }
   };
+  const handleSignIn = () => {
+    navigate('/Kanbas/Account/Signin');
+  };
   return (
     <div className="wd-signup-screen">
       <h1>Sign up</h1> 
@@ -26,8 +29,8 @@ export default function Signup() {
              className="wd-username form-control mb-2" placeholder="username" />
       <input value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} type="password"
              className="wd-password form-control mb-2" placeholder="password" />
-      <button onClick={signup} className="wd-signup-btn btn btn-primary mb-2"> Sign up </button><br />
-      <Link to="/Kanbas/Account/Signin" className="wd-signin-link">Sign in</Link>
+      <button onClick={signup} className="wd-signup-btn btn btn-primary w-100" style={{ marginBottom: '10px' }}> Sign up </button><br />
+      <button className="wd-signin-btn btn btn-primary w-100" onClick={handleSignIn}>Sign in</button>
     </div> 
   );
 }
